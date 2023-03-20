@@ -1,12 +1,12 @@
 #!/bin/bash
-cp /etc/sysctl.conf /root/sysctl.conf_backup
+sudo cp /etc/sysctl.conf /root/sysctl.conf_backup
 cat <<EOT> /etc/sysctl.conf
 vm.max_map_count=262144
 fs.file-max=65536
 ulimit -n 65536
 ulimit -u 4096
 EOT
-cp /etc/security/limits.conf /root/sec_limit.conf_backup
+sudo cp /etc/security/limits.conf /root/sec_limit.conf_backup
 cat <<EOT> /etc/security/limits.conf
 sonarqube   -   nofile   65536
 sonarqube   -   nproc    409
@@ -31,8 +31,8 @@ runuser -l postgres -c "createuser sonar"
 sudo -i -u postgres psql -c "ALTER USER sonar WITH ENCRYPTED PASSWORD 'admin123';"
 sudo -i -u postgres psql -c "CREATE DATABASE sonarqube OWNER sonar;"
 sudo -i -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE sonarqube to sonar;"
-systemctl restart  postgresql
-#systemctl status -l   postgresql
+sudo systemctl restart  postgresql
+
 netstat -tulpena | grep postgres
 sudo mkdir -p /sonarqube/
 cd /sonarqube/
@@ -79,8 +79,8 @@ LimitNPROC=4096
 WantedBy=multi-user.target
 EOT
 
-systemctl daemon-reload
-systemctl enable sonarqube.service
+sudo systemctl daemon-reload
+sudo systemctl enable sonarqube.service
 #systemctl start sonarqube.service
 #systemctl status -l sonarqube.service
 apt-get install nginx -y
@@ -110,6 +110,6 @@ server{
 }
 EOT
 ln -s /etc/nginx/sites-available/sonarqube /etc/nginx/sites-enabled/sonarqube
-systemctl enable nginx.service
-systemctl restart nginx.service
+sudo systemctl enable nginx.service
+sudo systemctl restart nginx.service
 

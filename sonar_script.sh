@@ -40,12 +40,9 @@ sudo curl -O https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9
 sudo apt-get install zip -y
 sudo unzip -o sonarqube-9.9.0.65466.zip -d /opt/
 sudo mv /opt/sonarqube-9.9.0.65466/ /opt/sonarqube
-sudo groupadd sonar
-sudo useradd -c "SonarQube - User" -d /opt/sonarqube/ -g sonar sonar
-sudo chown sonar:sonar /opt/sonarqube/ -R
-
+sudo rm -rf /opt/sonarqube/conf/sonar.properties
 sudo touch /opt/sonarqube/conf/sonar.properties
-sudo cat <<EOT> /opt/sonarqube/conf/sonar.properties
+sudo bash -c 'cat <<EOT> /opt/sonarqube/conf/sonar.properties
 sonar.jdbc.username=sonar
 sonar.jdbc.password=admin123
 sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube
@@ -55,7 +52,11 @@ sonar.web.javaAdditionalOpts=-server
 sonar.search.javaOpts=-Xmx512m -Xms512m -XX:+HeapDumpOnOutOfMemoryError
 sonar.log.level=INFO
 sonar.path.logs=logs
-EOT
+EOT'
+
+sudo groupadd sonar
+sudo useradd -c "SonarQube - User" -d /opt/sonarqube/ -g sonar sonar
+sudo chown sonar:sonar /opt/sonarqube/ -R
 
 sudo touch /etc/systemd/system/sonarqube.service
 sudo cat <<EOT> /etc/systemd/system/sonarqube.service

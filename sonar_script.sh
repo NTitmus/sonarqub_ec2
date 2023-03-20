@@ -36,7 +36,7 @@ systemctl restart  postgresql
 netstat -tulpena | grep postgres
 sudo mkdir -p /sonarqube/
 cd /sonarqube/
-sudo curl -O https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.3.0.34182.zip
+sudo curl -O https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.9.0.65466.zip
 sudo apt-get install zip -y
 sudo unzip -o sonarqube-8.3.0.34182.zip -d /opt/
 sudo mv /opt/sonarqube-8.3.0.34182/ /opt/sonarqube
@@ -111,9 +111,5 @@ server{
 EOT
 ln -s /etc/nginx/sites-available/sonarqube /etc/nginx/sites-enabled/sonarqube
 systemctl enable nginx.service
-#systemctl restart nginx.service
-sudo ufw allow 80,9000,9001/tcp
+systemctl restart nginx.service
 
-echo "System reboot in 30 sec"
-sleep 30
-reboot

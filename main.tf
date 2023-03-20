@@ -14,9 +14,10 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "Sonarqube" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
-  user_data     = file("sonar_script.sh")
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t3.micro"
+  user_data              = file("sonar_script.sh")
+  vpc_security_group_ids = [aws_security_group.ec2.id]
 
   tags = {
     Name = "Sonarqube_Instance"

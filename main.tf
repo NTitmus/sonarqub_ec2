@@ -8,7 +8,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu*"]
+    values = ["Canonical, Ubuntu, 22.04 LTS*"]
   }
 
 }

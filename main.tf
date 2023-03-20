@@ -18,6 +18,7 @@ resource "aws_instance" "Sonarqube" {
   instance_type          = "t3.micro"
   user_data              = file("sonar_script.sh")
   vpc_security_group_ids = [aws_security_group.ec2.id]
+  key_name               = "new-eks"
 
   tags = {
     Name = "Sonarqube_Instance"

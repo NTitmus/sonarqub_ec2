@@ -1,16 +1,18 @@
 #!/bin/bash
 
-sudo cat <<EOT> /etc/sysctl.conf
-vm.max_map_count=262144
-fs.file-max=65536
+sudo bash -c 'cat <<EOT> /etc/sysctl.conf
+vm.max_map_count=524288
+fs.file-max=131072
 ulimit -n 65536
 ulimit -u 4096
-EOT
+EOT'
+sudo sysctl -w vm.max_map_count=524288
+sysctl -w fs.file-max=131072
 
-sudo cat <<EOT> /etc/security/limits.conf
+sudo bash -c 'cat <<EOT> /etc/security/limits.conf
 sonarqube   -   nofile   65536
-sonarqube   -   nproc    409
-EOT
+sonarqube   -   nproc    4096
+EOT'
 
 sudo apt-get update -y
 sudo apt-get install openjdk-17-jdk -y

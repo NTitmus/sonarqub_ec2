@@ -44,6 +44,7 @@ sudo groupadd sonar
 sudo useradd -c "SonarQube - User" -d /opt/sonarqube/ -g sonar sonar
 sudo chown sonar:sonar /opt/sonarqube/ -R
 
+sudo touch /opt/sonarqube/conf/sonar.properties
 sudo cat <<EOT> /opt/sonarqube/conf/sonar.properties
 sonar.jdbc.username=sonar
 sonar.jdbc.password=admin123
@@ -114,4 +115,4 @@ EOT
 ln -s /etc/nginx/sites-available/sonarqube /etc/nginx/sites-enabled/sonarqube
 sudo systemctl enable nginx.service
 sudo systemctl restart nginx.service
-
+sudo systemctl restart sonarqube.service

@@ -59,7 +59,7 @@ sudo useradd -c "SonarQube - User" -d /opt/sonarqube/ -g sonar sonar
 sudo chown sonar:sonar /opt/sonarqube/ -R
 
 sudo touch /etc/systemd/system/sonarqube.service
-sudo cat <<EOT> /etc/systemd/system/sonarqube.service
+sudo bash -c 'cat <<EOT> /etc/systemd/system/sonarqube.service
 [Unit]
 Description=SonarQube service
 After=syslog.target network.target
@@ -80,7 +80,7 @@ LimitNPROC=4096
 
 [Install]
 WantedBy=multi-user.target
-EOT
+EOT'
 
 sudo systemctl daemon-reload
 sudo systemctl enable sonarqube.service
@@ -90,7 +90,7 @@ apt-get install nginx -y
 sudo rm -rf /etc/nginx/sites-enabled/default
 sudo rm -rf /etc/nginx/sites-available/default
 sudo touch /etc/nginx/sites-available/sonarqube
-sudo cat <<EOT> /etc/nginx/sites-available/sonarqube
+sudo bash -c 'sudo cat <<EOT> /etc/nginx/sites-available/sonarqube
 server{
     listen      80;
     server_name sonar.robofarming.link;
@@ -112,7 +112,7 @@ server{
         proxy_set_header    X-Forwarded-Proto http;
     }
 }
-EOT
+EOT'
 ln -s /etc/nginx/sites-available/sonarqube /etc/nginx/sites-enabled/sonarqube
 sudo systemctl enable nginx.service
 sudo systemctl restart nginx.service

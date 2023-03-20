@@ -44,7 +44,7 @@ sudo groupadd sonar
 sudo useradd -c "SonarQube - User" -d /opt/sonarqube/ -g sonar sonar
 sudo chown sonar:sonar /opt/sonarqube/ -R
 
-cat <<EOT> /opt/sonarqube/conf/sonar.properties
+sudo cat <<EOT> /opt/sonarqube/conf/sonar.properties
 sonar.jdbc.username=sonar
 sonar.jdbc.password=admin123
 sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube

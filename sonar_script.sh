@@ -91,7 +91,7 @@ sudo touch /etc/nginx/sites-available/sonarqube
 sudo cat <<EOT> /etc/nginx/sites-available/sonarqube
 server{
     listen      80;
-    server_name sonarqube.groophy.in;
+    server_name sonar.robofarming.link;
 
     access_log  /var/log/nginx/sonar.access.log;
     error_log   /var/log/nginx/sonar.error.log;

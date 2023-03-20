@@ -3,23 +3,8 @@ provider "aws" {
   region = "us-east-1"
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-}
-
 resource "aws_instance" "Sonarqube" {
-  ami                    = data.aws_ami.ubuntu.id
+  ami                    = "ami-0557a15b87f6559cf"
   instance_type          = "t3.micro"
   user_data              = file("sonar_script.sh")
   vpc_security_group_ids = [aws_security_group.ec2.id]

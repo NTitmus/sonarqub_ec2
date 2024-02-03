@@ -1,4 +1,4 @@
-variable "domainName" {
-  default = "sonar.robofarming.link"
-  type    = string
-}
+#variable "domainName" {
+#  default = "sonar.robofarming.link"
+#  type    = string
+#}
